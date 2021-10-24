@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $products = Product::all();
 
         return response()->json([
-            'categories' => $categories
+            'products' => $products
         ]);
     }
 
@@ -39,17 +39,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = Category::create([
+        $product = Product::create([
             'name' => request('name'),
-            'order' => request('order'),
+            'description' => request('description'),
+            'price' => request('price'),
         ]);
 
         if (request('image')) {
             $image = request('image');
             $imageNewName= time().$image->getClientOriginalName();
-            $image->move('categories/', $imageNewName);
-            $category->image = $imageNewName;
-            $category->save(); 
+            $image->move('products/', $imageNewName);
+            $product->image = $imageNewName;
+            $product->save(); 
         }
         return response()->json([
             'status' => 'success'
@@ -85,19 +86,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Category $category)
+    public function update(Product $product)
     {
-        $category->update([
+        $product->update([
             'name' => request('name'),
-            'order' => request('order'),
+            'description' => request('description'),
+            'price' => request('price'),
         ]);
 
-        if (request('image') && request('image') !== $category->image) {
+        if (request('image') && request('image') !== $product->image) {
             $image = request('image');
             $imageNewName= time().$image->getClientOriginalName();
-            $image->move('categories/', $imageNewName);
-            $category->image = $imageNewName;
-            $category->save(); 
+            $image->move('products/', $imageNewName);
+            $product->image = $imageNewName;
+            $product->save(); 
         }
     }
 
@@ -107,13 +109,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Product $product)
     {
-        $category->delete();
+        $product->delete();
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Category has been deleted'
+            'message' => 'Product has been deleted'
         ]);
     }
 }
