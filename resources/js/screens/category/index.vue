@@ -25,7 +25,14 @@
           v-for="category in categories"
           :key="category.id"
         >
-          <td class="text-center">{{ category.image }}</td>
+          <td class="text-center">
+            <div v-if="category.image">
+              <img :src="url+'/categories/'+category.image" alt="" style="height:100px;width:100px">
+            </div>
+            <div v-else>
+              <img src="https://www.logodesignlove.com/images/monograms/tesla-logo-01.jpg" alt="" style="height:100px;width:100px">
+            </div>
+            </td>
           <td class="text-center">{{ category.name }}</td>
           <td class="text-center">{{ category.order }}</td>
           <td class="text-center">
@@ -35,6 +42,7 @@
                 dark
                 large
                 color="cyan"
+                v-on:click="() => $router.push({name: 'EditCategory', params: {category}})"
                 >
                 <font-awesome-icon icon="pen" />
                 </v-btn>
@@ -46,6 +54,7 @@
                 dark
                 large
                 color="red"
+                v-on:click="deleteCategory(category.id)"
                 >
                 <font-awesome-icon icon="trash" />
                 </v-btn>
@@ -61,6 +70,7 @@
     data () {
       return {
         categories: [],
+        url: window.location.origin
       }
     },
 
@@ -73,6 +83,14 @@
             axios.get('/api/categories').then(response => {
                 if(response.status >= 200 && response.status < 300) {
                     this.categories = response.data.categories
+                }
+            })
+        },
+
+        deleteCategory(id) {
+          axios.delete('/api/categories/'+id).then(response => {
+                if(response.status >= 200 && response.status < 300) {
+                    this.getCategories()
                 }
             })
         }

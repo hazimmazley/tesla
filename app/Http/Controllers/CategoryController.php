@@ -39,7 +39,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = Category::create([
+            'name' => request('name'),
+            'order' => request('order'),
+        ]);
+
+        if (request('image')) {
+            $image = request('image');
+            $imageNewName= time().$image->getClientOriginalName();
+            $image->move('categories/', $imageNewName);
+            $category->image = $imageNewName;
+            $category->save(); 
+        }
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 
     /**
@@ -71,9 +85,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Category $category)
     {
-        //
+        $category->update([
+            'name' => request('name'),
+            'order' => request('order'),
+        ]);
+
+        if (request('image') && request('image') !== $category->image) {
+            $image = request('image');
+            $imageNewName= time().$image->getClientOriginalName();
+            $image->move('categories/', $imageNewName);
+            $category->image = $imageNewName;
+            $category->save(); 
+        }
     }
 
     /**
@@ -82,8 +107,14 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Category has been deleted'
+        ]);
+
     }
 }

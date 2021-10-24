@@ -8,12 +8,20 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn>
+      <v-btn class="mr-2" @click="() => this.$router.push('addCategory')">
+        Add Category
+      </v-btn>
+
+      <v-btn @click="() => this.$router.push('categories')">
         Categories
       </v-btn>
 
       <v-btn class="ml-2">
         Products
+      </v-btn>
+
+       <v-btn class="ml-2">
+        Add Product
       </v-btn>
     </v-toolbar>
   </div>
