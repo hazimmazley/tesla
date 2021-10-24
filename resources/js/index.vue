@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AppNavigator from './components/AppNavigator.vue'
+import AppNavigator from './components/admin/AppNavigator.vue'
 
 export default {
     name: 'index',

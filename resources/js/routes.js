@@ -1,11 +1,11 @@
 import Home from './components/Home';
-import Categories from './screens/category/index';
-import AddCategory from './screens/category/create';
-import EditCategory from './screens/category/edit';
-import Products from './screens/product/index';
-import AddProduct from './screens/product/create';
-import EditProduct from './screens/product/edit';
-
+import Categories from './screens/admin/category/index';
+import AddCategory from './screens/admin/category/create';
+import EditCategory from './screens/admin/category/edit';
+import Products from './screens/admin/product/index';
+import AddProduct from './screens/admin/product/create';
+import EditProduct from './screens/admin/product/edit';
+import Login from './screens/auth/Login';
 
 export default {
     mode: 'history',
@@ -49,6 +49,12 @@ export default {
             props: true,
             name: 'EditProduct'
         },
+
+        {
+            path:'/login',
+            component:Login,
+            name: 'Login'
+        }
 
     ]
 }
