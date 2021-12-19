@@ -15,6 +15,8 @@ use App\Http\Controllers\Auth\LoginController;
 */
 // dd(Auth::routes());
 Route::group(['prefix' => 'admin'], function() {
+    // Route::get('login', 'HomeController@index')->name('login');
+
     Route::post('login', [LoginController::class, 'login']);
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });

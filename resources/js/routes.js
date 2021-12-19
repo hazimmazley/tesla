@@ -1,4 +1,5 @@
 import Home from './components/Home';
+import HomePage from './screens/client/HomePage'
 import Categories from './screens/admin/category/index';
 import AddCategory from './screens/admin/category/create';
 import EditCategory from './screens/admin/category/edit';
@@ -48,6 +49,11 @@ export default {
             component: EditProduct,
             props: true,
             name: 'EditProduct'
+        },
+
+        {
+            path: '/home',
+            component: HomePage
         },
 
         {
