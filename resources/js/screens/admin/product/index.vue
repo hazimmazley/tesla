@@ -9,6 +9,9 @@
           <th class="text-center">
             Name
           </th>
+          <th class="text-center">
+            Category
+          </th>
            <th class="text-center">
             Description
           </th>
@@ -37,6 +40,7 @@
             </div>
             </td>
           <td class="text-center">{{ product.name }}</td>
+          <td class="text-center">{{ product.category.name }}</td>
           <td class="text-center">{{ product.description }}</td>
           <td class="text-center">{{ product.price }}</td>
           <td class="text-center">

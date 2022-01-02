@@ -26,6 +26,16 @@
       v-model="price"
     ></v-text-field>
 
+    <v-select
+          :items="categories"
+          return-object
+          item-text="name"
+          label="Category"
+          outlined
+          dark
+          v-model="category"
+        ></v-select>
+
 <v-row class="mb-2">
      <v-file-input
     label="Image"
@@ -58,8 +68,14 @@ export default {
             name: this.product.name,
             description: this.product.description,
             price: this.product.price,
-            image: this.product.image
+            image: this.product.image,
+            categories: [],
+            category: this.product.category
         }
+    },
+
+    mounted() {
+      this.getCategories()
     },
 
     methods: {
@@ -69,6 +85,7 @@ export default {
                 description: this.description,
                 price: this.price,
                 image: this.image,
+                category: this.category
             }).then(response => {
              this.$router.push('products')
             })
@@ -84,7 +101,21 @@ export default {
             reader.onload = () => {
                 this.image = reader.result;
             }
-    }
+    },
+
+     getCategories() {
+          axios.get('/api/categories').then(response => {
+            if (response.status >= 200 && response.status < 300) {
+              var categoryArr = []
+
+              response.data.categories.map(category => {
+                categoryArr.push({name : category.name , id: category.id})
+              })
+
+              this.categories = categoryArr
+            }
+          })
+      }
     }
 
 }
